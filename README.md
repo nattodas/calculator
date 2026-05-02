@@ -1,1 +1,1 @@
-# calculator
+A basic calculator available on the browser.
