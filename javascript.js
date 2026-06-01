@@ -3,9 +3,10 @@ let subtract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
 let sqrt = (a) => Math.sqrt(a);
-let numOne;
-let numTwo;
-let operator;
+let numOne = "";
+let numTwo = "";
+let operator = "";
+let arr = [];
 let operate = (num, num2, op) => {
     if (op === "+") {
         return add(num, num2);
@@ -33,48 +34,53 @@ let digits = document.querySelectorAll(".digit");
 let equals = document.querySelector(".equals");
 let clearBtn = document.querySelector(".clearBtn");
 let deleteBtn = document.querySelector(".deleteBtn");
-// let counter = 0;
 
 digits.forEach((digit) => {
     digit.addEventListener("click", () => {
         currentCalcDisplay.textContent += digit.value;
+        if (/[+\-*/x÷√]/.test(currentCalcDisplay.textContent)) {
+            numTwo += digit.value;
+        }
     })
 });
 
 operatorBtns.forEach((opBtn) => {
     opBtn.addEventListener("click", () => {
-        numOne = currentCalcDisplay.textContent;
-        console.log(numOne);
+        if (numOne === "" && operator === "") {
+            numOne = currentCalcDisplay.textContent;
+            operator = opBtn.value;
+        };
+        let previousResult = currentCalcDisplay.textContent;
         currentCalcDisplay.textContent = currentCalcDisplay.textContent + " " + opBtn.value + " ";
-        operator = opBtn.value;
-        // counter++; 
-        // if (counter === 1) {
-        //     operatorOne = opBtn.value;
-        //     console.log(operatorOne);
-        //     numOne = currentCalcDisplay.textContent.split(operatorOne)[0];
-        //     console.log(numOne);
-        // } else if (counter === 2) {
-        //     operatorTwo = opBtn.value;
-        //     numTwo = currentCalcDisplay.textContent.split(operatorOne)[1].split(operatorTwo)[0];
-        //     console.log(numTwo);
-        //     operator = operatorOne;
-        //     let previousResult = currentCalcDisplay.textContent.slice(0, -2);
-        //     let result = operate(Number(numOne), Number(numTwo), operator);
+        if (numOne != "" && numTwo != "") {
+            let result = operate(Number(numOne), Number(numTwo), operator);
+            pastCalcDisplay.textContent = previousResult;
+            currentCalcDisplay.textContent = result + " " + opBtn.value + " ";
+            console.log(result);
+            numOne = result;
+            numTwo = "";
+            operator = opBtn.value;
+        }
+        // if (numOne != "" && operator === "√") {
+        //     let result = sqrtOp(Number(numOne), operator);
+        //     pastCalcDisplay.textContent = previousResult + " " + opBtn.value;
+        //     currentCalcDisplay.textContent = result;
         //     console.log(result);
-        //     previousCalcDisplay.textContent = previousResult;
-        //     currentCalcDisplay.textContent = result + " " + operatorTwo;
-        //     }
-        });
+        //     numOne = result;
+        //     numTwo = "";
+        //     operator = opBtn.value;
+        // }
     });
+});
 
-equals.addEventListener("click", () => {
-    numTwo = currentCalcDisplay.textContent.split(operator)[1].split("equals")[0];
-    console.log(numTwo);
-    let previousResult = currentCalcDisplay.textContent;
-    let result = operate(Number(numOne), Number(numTwo), operator);
-    previousCalcDisplay.textContent = previousResult;
-    currentCalcDisplay.textContent = result;
-})
+// equals.addEventListener("click", () => {
+//     numTwo = currentCalcDisplay.textContent.split(operator)[1].split("equals")[0];
+//     console.log(numTwo);
+//     let previousResult = currentCalcDisplay.textContent;
+//     let result = operate(Number(numOne), Number(numTwo), operator);
+//     previousCalcDisplay.textContent = previousResult;
+//     currentCalcDisplay.textContent = result;
+// })
 
 clearBtn.addEventListener("click", () => {
     currentCalcDisplay.textContent = "";
