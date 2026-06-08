@@ -6,13 +6,14 @@ body {
 }
 
 #container {
-    width: 400px;
+    width: 380px;
     border: 1px solid black;
     border-radius: 12px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     padding: 5px;
+    background-color: #70726E;
 }
 
 #display {
@@ -24,6 +25,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    background-color: #E3E3E3;
 }
 
 .buttons {
@@ -37,10 +39,21 @@ button {
     height: 60px;
     border-radius: 12px;
     margin: 5px;
+    background-color: #E3E3E3;
+    border: 1px solid black;
 }
 
-.btn.btnNineteen {
+.btn.equalsBtn {
     width: 160px;
     height: 60px;
+    background-color: #FADEAA;
 }
 
+.btn.clearBtn, 
+.btn.deleteBtn {
+    background-color: #B8B9B6;
+}
+
+.btn.operatorBtn {
+    background-color: #FADEAA;
+} 
